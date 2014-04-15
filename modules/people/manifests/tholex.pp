@@ -11,7 +11,7 @@ class people::tholex {
   # Apps
   include firefox::aurora
 
-  include chrome::stable
+  include chrome
   include chrome::canary
 
   # include onepassword

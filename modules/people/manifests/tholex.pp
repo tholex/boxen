@@ -78,9 +78,8 @@ class people::tholex {
     provider => 'homebrew',
   }
 
-
   Boxen::Osx_defaults {
-    user => $::luser,
+    user => $::luser
   }
 
   # OSX Settings
@@ -92,9 +91,11 @@ class people::tholex {
   include osx::dock::2d
   include osx::dock::autohide
   include osx::dock::dim_hidden_apps
+
   class { 'osx::dock::position':
     position => 'left'
   }
+
   include osx::dock::pin_position
 
   # Finder
@@ -110,11 +111,11 @@ class people::tholex {
   # Default : zooms cursor by 1.5
   include osx::universal_access::cursor_size
 
-  ### Link teh dotfiles
-  -> people::tholex::dotfile::link { $env['dotfiles']:
-    source_dir => $env['directories']['dotfiles'],
-    dest_dir   => $env['directories']['home'],
-  }
+  ### Link the dotfiles
+  # ~> people::tholex::dotfile::link { $env['dotfiles']:
+  #   source_dir => $env['directories']['dotfiles'],
+  #   dest_dir   => $env['directories']['home'],
+  # }
 
   # Install Janus
   repository { 'janus':
@@ -158,10 +159,10 @@ class people::tholex {
 
 
   # Misc Helpers || https://gist.github.com/jfryman/4963514
-  define dotfile::link($source_dir, $dest_dir) {
-    file { "${dest_dir}/.${name}":
-      ensure => symlink,
-      target => "${source_dir}/${name}",
-    }
-  }
+  #   define dotfile::link($source_dir, $dest_dir) {
+  #     file { "${dest_dir}/.${name}":
+  #       ensure => symlink,
+  #       target => "${source_dir}/${name}",
+  #     }
+  #   }
 }

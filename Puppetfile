@@ -79,7 +79,7 @@ github "caffeine",    "1.0.0"
 github "spotify",     "1.0.1"
 github "vlc",         "1.1.0"
 github "pow",         "2.0.0"
-github "nvalt",       "1.0.1", :repo => "dttocs/puppet-nvalt"
+github "nvalt",       "1.0.1", :repo => "tholex/puppet-nvalt"
 github "daisy_disk",  "1.0.1"
 github "utorrent",    "1.1.1"
 

@@ -88,8 +88,8 @@ class people::tholex {
   include osx::global::expand_save_dialog
   include osx::global::expand_print_dialog
   include osx::global::enable_keyboard_control_access
-  include osx::dock::2d
   include osx::dock::autohide
+  include osx::dock::clear_dock
   include osx::dock::dim_hidden_apps
 
   class { 'osx::dock::position':

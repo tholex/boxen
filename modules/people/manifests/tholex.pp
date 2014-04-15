@@ -134,27 +134,27 @@ class people::tholex {
   # Install vim plugins into pathogen dir
   repository { 'vim-rails':
     source => 'tpope/vim-rails',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/vim-rails"
   }
   repository { 'emmet-vim':
     source => 'mattn/emmet-vim',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/emmet-vim"
   }
   repository { 'nerdcommenter':
     source => 'scrooloose/nerdcommenter',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/nerdcommenter"
   }
   repository { 'portkey':
     source => 'dsawardekar/portkey',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/portkey"
   }
   repository { 'vim-bundler':
     source => 'tpope/vim-bundler',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/vim-bundler"
   }
   repository { 'vim-handlebars':
     source => 'nono/vim-handlebars',
-    path   => "${env['directories']['pgen']}"
+    path   => "${env['directories']['pgen']}/vim-handlebars"
   }
 
 

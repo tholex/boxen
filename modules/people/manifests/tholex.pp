@@ -28,7 +28,7 @@ class people::tholex {
   include spotify
   include vlc
   include pow
-  include nvalt::stable
+  include nvalt::beta
   include daisy_disk
   include utorrent
 

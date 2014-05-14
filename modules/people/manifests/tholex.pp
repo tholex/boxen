@@ -1,32 +1,47 @@
 class people::tholex {
   notify { 'class people::tholex declared': }
 
+  # For Justice!
+  include homebrew
+
+  # Dev Jank
+  include vagrant
+  include virtualbox
+
   # Apps
-  include chrome::stable
+  include firefox::aurora
+
+  include chrome
   include chrome::canary
 
   # include onepassword
   include dropbox
   include alfred
   include flux
-  include divvy
   include macvim
   include zsh
-  include homebrew
   include iterm2::dev
   include iterm2::colors::solarized_dark
   include skype
   include caffeine
   include spotify
   include vlc
-  include virtualbox
   include pow
-  include nvalt::stable
+  include nvalt::beta
   include daisy_disk
   include utorrent
 
+  # Boxen postgres is on port 15432
   include postgresql
+
+  # Boxen redis provides:
+  #   BOXEN_REDIS_PORT: the configured redis port
+  #   BOXEN_REDIS_URL: the URL for redis, including localhost & port
   include redis
+
+  # Boxen mongodb provides:
+  #   BOXEN_MONGODB_PORT: the configured mongodb port
+  #   BOXEN_MONGODB_URL: the URL for mongodb, including localhost & port
   include mongodb
 
   # Projects
@@ -40,7 +55,8 @@ class people::tholex {
   $env = {
     directories => {
       home      => '/Users/olex',
-      dotfiles  => '/Users/olex/.dotfiles'
+      pgen      => '/Users/olex/.janus',
+      dotfiles  => '/Users/olex/Dropbox/dotfiles'
     },
     dotfiles => [
       'vimrc.after',
@@ -61,9 +77,8 @@ class people::tholex {
     provider => 'homebrew',
   }
 
-
   Boxen::Osx_defaults {
-    user => $::luser,
+    user => $::luser
   }
 
   # OSX Settings
@@ -72,12 +87,15 @@ class people::tholex {
   include osx::global::expand_save_dialog
   include osx::global::expand_print_dialog
   include osx::global::enable_keyboard_control_access
+
   include osx::dock::2d
   include osx::dock::autohide
+  include osx::dock::clear_dock
   include osx::dock::dim_hidden_apps
   class { 'osx::dock::position':
     position => 'left'
   }
+
   include osx::dock::pin_position
 
   # Finder
@@ -93,6 +111,12 @@ class people::tholex {
   # Default : zooms cursor by 1.5
   include osx::universal_access::cursor_size
 
+  ### Link the dotfiles
+  # ~> people::tholex::dotfile::link { $env['dotfiles']:
+  #   source_dir => $env['directories']['dotfiles'],
+  #   dest_dir   => $env['directories']['home'],
+  # }
+
   # Install Janus
   repository { 'janus':
     source => 'carlhuda/janus',
@@ -106,4 +130,39 @@ class people::tholex {
       "HOME=${env['directories']['home']}",
     ],
   }
+
+  # Install vim plugins into pathogen dir
+  repository { 'vim-rails':
+    source => 'tpope/vim-rails',
+    path   => "${env['directories']['pgen']}/vim-rails"
+  }
+  repository { 'emmet-vim':
+    source => 'mattn/emmet-vim',
+    path   => "${env['directories']['pgen']}/emmet-vim"
+  }
+  repository { 'nerdcommenter':
+    source => 'scrooloose/nerdcommenter',
+    path   => "${env['directories']['pgen']}/nerdcommenter"
+  }
+  repository { 'portkey':
+    source => 'dsawardekar/portkey',
+    path   => "${env['directories']['pgen']}/portkey"
+  }
+  repository { 'vim-bundler':
+    source => 'tpope/vim-bundler',
+    path   => "${env['directories']['pgen']}/vim-bundler"
+  }
+  repository { 'vim-handlebars':
+    source => 'nono/vim-handlebars',
+    path   => "${env['directories']['pgen']}/vim-handlebars"
+  }
+
+
+  # Misc Helpers || https://gist.github.com/jfryman/4963514
+  #   define dotfile::link($source_dir, $dest_dir) {
+  #     file { "${dest_dir}/.${name}":
+  #       ensure => symlink,
+  #       target => "${source_dir}/${name}",
+  #     }
+  #   }
 }

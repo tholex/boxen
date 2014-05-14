@@ -63,6 +63,8 @@ node default {
     fail('Please enable full disk encryption and try again')
   }
 
+  include stdlib
+
   # node versions
   include nodejs::v0_10
 
